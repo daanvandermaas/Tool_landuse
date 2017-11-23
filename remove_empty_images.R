@@ -9,7 +9,7 @@ for(dir in subdirs){
   images = list.files(dir, full.names = TRUE)
   for(image in images){
     im = readTIFF(image)
-    if(sum(!im[,,1] > 0.9) < 20  ){
+    if(sum(im[,,1] < 0.9) > 100000  ){
       file.remove(image)
     }
   }
