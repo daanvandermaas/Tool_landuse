@@ -19,3 +19,24 @@ snijd_uit = function(shape, raster){
   
   return(shape)
 }
+
+
+
+
+snijd_uit = function(shape, raster){
+  
+  selectie = lapply( c(1:length(shape@polygons)), function(i){
+    
+  data.frame( 'x' =  shape@polygons[[i]]@Polygons[[1]]@coords[,1],   'y' =  shape@polygons[[i]]@Polygons[[1]]@coords[,2], 'id' = n  )
+    
+  })
+  
+  selectie = unlist(selectie)
+  
+  shape = shape[selectie,]
+  
+  return(shape)
+}
+
+
+
