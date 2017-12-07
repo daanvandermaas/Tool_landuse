@@ -11,25 +11,14 @@ dir_labels = 'db/labels'
 dir_images = 'db/images'
 
 
-#maak dataframe met levels en bestandsnamen
-
- 
  #selecteer klassen die je wilt gebruiken
- 
-
 klassen = read_feather('db/dataframe_levels.feather')
  select = c(8)
 klassen = klassen[select,]
  
  
-
-
-
+#maak vector van bestandsnamen
 images = list.dirs(dir_labels, recursive = TRUE)
-
-
-
-
 #selecteer alle subdirs die bij een afbeelding horen
 splits = strsplit(images, '[/]')
 splits = lapply(splits, function(split){
@@ -41,8 +30,6 @@ splits = lapply(splits, function(split){
 })
 splits = unlist(splits)
 images = splits[!is.na(splits)]
-
-
 
 
 #splits op in train en test

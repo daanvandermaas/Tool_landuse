@@ -21,10 +21,11 @@ for(n in 571:length(subdirs_images)){
   #pak alle namen van alle subdirs
   images = list.files(file.path(dir_images, dir))
   
-  #loop door alle shapes heen
+
   if(length(images)>0){
     #creeer dir voor image in subdir
     for(image in images){ dir.create(file.path(dir_labels, dir, strsplit(image, '[.]')[[1]][1]))}
+    #loop door alle shapes heen
     for(shape in shapes){
       print(paste("lees shape", file.path(dir_subshapes, subdirs_images[n], shape)))
       #lees shape in
