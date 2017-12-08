@@ -1,5 +1,5 @@
 #lees random plaatjes in
-batch_test = 90
+batch_test = 10
 
 batch = test[ sample(c(1:length(test)), size = batch_test ) ]
 
@@ -13,7 +13,7 @@ saveRDS(plaatjes[i,,,],  paste0('db/resultaat/plaatjes_', i, '.rds') )
   saveRDS(prediction[i,,,1],  paste0('db/resultaat/predict_', i, '.rds') ) 
 }
 
-for(i in 6:6){
+for(i in 1:3){
   display(plaatjes[i,,,])
   display(prediction[i,,,1])
 }
