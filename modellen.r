@@ -1,7 +1,5 @@
 ################################model volledig
 
-batch_input = 5L
-
 ############variabelen
 w_conv1 <-tf$Variable(tf$truncated_normal(shape(3L, 3L, 3L, 64L), stddev=0.1), 'w_conv1')
 b_conv1 <- tf$Variable(tf$truncated_normal(shape(1L, 64L), stddev=0.1), 'b_conv1')  
@@ -139,4 +137,7 @@ h_upconv5 = tf$contrib$layers$batch_norm( tf$nn$relu( tf$nn$conv2d_transpose( h_
 h_concat5 = tf$concat( list(h_conv2, h_upconv5), axis = 3L)
 h_conv26 <- tf$contrib$layers$batch_norm(tf$nn$relu(  tf$nn$conv2d(h_concat5, w_conv26, strides=c(1L, 1L, 1L, 1L), padding='SAME') + b_conv26 ) )
 h_conv27 <- tf$contrib$layers$batch_norm(tf$nn$relu(  tf$nn$conv2d(h_conv26, w_conv27, strides=c(1L, 1L, 1L, 1L), padding='SAME') + b_conv27 ) )
-h_convout <- tf$contrib$layers$batch_norm(tf$nn$relu(  tf$nn$conv2d(h_conv27, w_convout, strides=c(1L, 1L, 1L, 1L), padding='SAME') + b_convout ) )
+h_convout <-  tf$sigmoid( tf$nn$conv2d(h_conv27, w_convout, strides=c(1L, 1L, 1L, 1L), padding='SAME') + b_convout  )
+
+
+out_softmax = tf$nn$softmax(h_convout, dim = -1L)
