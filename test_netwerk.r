@@ -1,5 +1,5 @@
 #lees random plaatjes in
-batch_test = 10
+batch_test = 1
 dir_out = 'db/resultaat/plaatjes'
 
 batch = test[ sample(c(1:length(test)), size = batch_test ) ]

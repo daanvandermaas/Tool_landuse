@@ -65,7 +65,7 @@ w = as.integer(512)
 
 drop = 0.5 #dropout
 ds = 0.99 #gradient descent
-lr = 1e-3 #learningrate
+lr = 1e-2 #learningrate
 kanalen = as.integer(3) #kanalen image
 ###############
 
@@ -86,7 +86,7 @@ lrate <- tf$placeholder(tf$float32)
 
 
 
-source('modelzeerklein.r')
+source('modelklein.r')
 
 
 
@@ -119,7 +119,9 @@ sess$run(tf$global_variables_initializer())
 print('start')
 
 
-
+############################
+train = "1923/24_61"
+################################################
 
 
 
