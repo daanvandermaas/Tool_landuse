@@ -58,13 +58,12 @@ rm(images)
 ######constante
 batch_train = 1 #batchsize
 batch_test = 1
-batch_input = 1L
 clas = as.integer(2)
 w = as.integer(512)
 
 
 drop = 0.5 #dropout
-ds = 0.99 #gradient descent
+ds = 1 #gradient descent
 lr = 1e-2 #learningrate
 kanalen = as.integer(3) #kanalen image
 ###############
@@ -97,8 +96,7 @@ source('modelklein.r')
 labels_one_hot = tf$one_hot(labels, depth = clas)
 fout  = - tf$reduce_mean(  tf$multiply( labels_one_hot  ,  tf$log(    tf$clip_by_value(out_softmax, clip_value_min =  1e-10, clip_value_max = 1)   ) ) )
 
-
-
+accuracy =  tf$reduce_mean( tf$cast( tf$equal(labels_one_hot, tf$round(out_softmax) ),  tf$float32)  )
 
 
 #trainstep met adam optimizer (met momentum)
@@ -120,7 +118,15 @@ print('start')
 
 
 ############################
-train = "1923/24_61"
+#train = "1923/24_61"
+#test = "1923/24_61"
+#train = "1923/24_6"
+#test = "1923/24_6"
+#train = "1923/24_61"
+#test = "1923/24_6"
+test = "1009/24_6"
+train = "1009/24_6"
+#test = test[ 1:30]
 ################################################
 
 
@@ -148,12 +154,20 @@ for (i in 1:200000) {
   
   if(i %% 100 == 0){
     
-
+    #lees random plaatjes in
+    batch = test
+    
+    
+    input = lees_in(images = batch, w = w, klassen = klassen, dir_images = dir_images, dir_labels = dir_labels)
+    b= input[[1]]
+    a=  input[[2]]
+    a[a!=0] = 1
+    
     
     acc = sess$run( fout, feed_dict = dict(x = b, labels = a,keep_prob = 1)  )
-    
-    print(paste('train accuracy:', acc))
-    
+    print(paste('step', i, 'train loss:', acc))
+    acc = sess$run( accuracy, feed_dict = dict(x = b, labels = a,keep_prob = 1)  )
+    print(paste('step', i, 'train accuracy:', acc))
   }
   
   
@@ -161,7 +175,9 @@ for (i in 1:200000) {
   
   
   
-}
+} 
+
+
 
 
 
